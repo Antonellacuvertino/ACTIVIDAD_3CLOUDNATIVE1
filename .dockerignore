@@ -1,5 +1,6 @@
+target
 .gradle
-**/build
+build
 .git
 .idea
 README.md

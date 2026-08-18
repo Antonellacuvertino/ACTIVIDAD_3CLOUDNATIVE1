@@ -1,2 +1,0 @@
-rootProject.name = 'actividad3'
-include 'auth-service', 'business-service'

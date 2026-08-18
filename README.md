@@ -12,8 +12,8 @@ Los DTO están en el paquete `dto`, el usuario simulado en `model` y la generaci
 En dos terminales, desde la carpeta raíz:
 
 ```powershell
-.\gradlew.bat :auth-service:bootRun
-.\gradlew.bat :business-service:bootRun
+.\mvnw.cmd -pl auth-service spring-boot:run
+.\mvnw.cmd -pl business-service spring-boot:run
 ```
 
 Usuarios de prueba:
