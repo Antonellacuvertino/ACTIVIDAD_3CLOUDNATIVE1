@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class HolaMundoV1Controller {
     @GetMapping
     public String holaMundo(@AuthenticationPrincipal Jwt jwt) {
-        return "hola mundo v1.0.0 - bug corregido v1.1.1 " + jwt.getSubject();
+        return "Acceso autorizado. Usuario autenticado: " + jwt.getSubject();
     }
 
     @PostMapping
     public String despedida(@AuthenticationPrincipal Jwt jwt) {
-        return "despedida V1.1.0 " + jwt.getSubject();
+        return "Solicitud procesada correctamente para el usuario: " + jwt.getSubject();
     }
 
     @GetMapping("/public")

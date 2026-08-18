@@ -43,8 +43,6 @@ Invoke-RestMethod -Uri http://localhost:8082/api/v1 -Headers @{ Authorization = 
 - `GET /api/v1`: endpoint protegido, responde el usuario obtenido desde el JWT.
 - `POST /api/v1`: endpoint protegido, responde el usuario obtenido desde el JWT.
 
-> Nota: para enfocarse en la actividad, los usuarios se mantienen en memoria. En una aplicación real, la clave secreta no se compartiría en texto plano; se usarían variables de entorno y un IdP con claves asimétricas.
-
 ## Fase 3
 
 Los `Dockerfile` y `docker-compose.yml` permiten contenerizar los servicios. La guía completa para EC2 y API Gateway está en [docs/FASE_3_AWS.md](docs/FASE_3_AWS.md).
