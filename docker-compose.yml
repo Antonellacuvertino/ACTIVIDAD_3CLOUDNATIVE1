@@ -1,0 +1,20 @@
+services:
+  auth-service:
+    build:
+      context: .
+      dockerfile: auth-service/Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      AUTH_ISSUER: ${AUTH_ISSUER:-http://auth-service:8081}
+
+  business-service:
+    build:
+      context: .
+      dockerfile: business-service/Dockerfile
+    ports:
+      - "8082:8082"
+    environment:
+      AUTH_ISSUER: ${AUTH_ISSUER:-http://auth-service:8081}
+    depends_on:
+      - auth-service

@@ -36,4 +36,5 @@ public class AuthController {
         }
         return ResponseEntity.ok(new TokenResponse(jwtService.generateToken(user), "Bearer", 900));
     }
+
 }

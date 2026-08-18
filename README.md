@@ -1,11 +1,11 @@
-# Actividad 3 - JWT y OAuth 2.0
+# Actividad 3 - OIDC, OAuth 2.0 y AWS
 
 Proyecto organizado en dos microservicios Spring Boot:
 
-- **auth-service (8081):** valida usuarios simulados y genera JWT firmados con HS256.
-- **business-service (8082):** funciona como OAuth 2.0 Resource Server y valida los JWT mediante `NimbusJwtDecoder`.
+- **auth-service (8081):** valida usuarios simulados, firma JWT con RS256 y publica OIDC discovery/JWKS.
+- **business-service (8082):** funciona como OAuth 2.0 Resource Server y valida los JWT mediante la clave pública del IdP.
 
-Los DTO están en el paquete `dto`, el usuario simulado en `model` y la generación de tokens en `JwtService`. Ambos servicios usan la misma propiedad `jwt.secret`, tal como indica la guía de la actividad.
+Los DTO están en el paquete `dto`, el usuario simulado en `model` y la generación de tokens en `JwtService`. RS256 permite que API Gateway valide el token con la clave pública, sin exponer la clave privada.
 
 ## Ejecutar localmente
 
@@ -43,4 +43,8 @@ Invoke-RestMethod -Uri http://localhost:8082/api/v1 -Headers @{ Authorization = 
 - `GET /api/v1`: endpoint protegido, responde el usuario obtenido desde el JWT.
 - `POST /api/v1`: endpoint protegido, responde el usuario obtenido desde el JWT.
 
-> Nota:Los usuarios se mantienen en memoria. En una aplicación real, la clave secreta no se compartiría en texto plano; se usarían variables de entorno y un IdP con claves asimétricas.
+> Nota: para enfocarse en la actividad, los usuarios se mantienen en memoria. En una aplicación real, la clave secreta no se compartiría en texto plano; se usarían variables de entorno y un IdP con claves asimétricas.
+
+## Fase 3
+
+Los `Dockerfile` y `docker-compose.yml` permiten contenerizar los servicios. La guía completa para EC2 y API Gateway está en [docs/FASE_3_AWS.md](docs/FASE_3_AWS.md).

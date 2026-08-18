@@ -1,9 +1,5 @@
 package com.example.actividad3.business;
 
-import io.jsonwebtoken.security.Keys;
-import java.nio.charset.StandardCharsets;
-import java.security.Key;
-import javax.crypto.SecretKey;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,17 +12,14 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
-    @Value("${jwt.secret}")
-    private String secretString;
-
-    private Key getSigningKey() {
-        return Keys.hmacShaKeyFor(secretString.getBytes(StandardCharsets.UTF_8));
-    }
+    @Value("${app.issuer}")
+    private String issuer;
 
     @Bean
     JwtDecoder jwtDecoder() {
-        SecretKey secretKey = (SecretKey) getSigningKey();
-        return NimbusJwtDecoder.withSecretKey(secretKey).build();
+        NimbusJwtDecoder decoder = NimbusJwtDecoder.withJwkSetUri(issuer + "/oauth2/jwks").build();
+        decoder.setJwtValidator(org.springframework.security.oauth2.jwt.JwtValidators.createDefaultWithIssuer(issuer));
+        return decoder;
     }
 
     @Bean
